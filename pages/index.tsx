@@ -30,7 +30,26 @@ function setToLocalStorage(key: string, value: any) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-function SortableItem({ todo, onEdit, onDelete, onToggle }) {
+type TodoItem = {
+  id: number;
+  task: string;
+  is_complete: boolean;
+  due_date: string | null;
+  category: string | null;
+  updated_at?: string;
+};
+
+function SortableItem({
+  todo,
+  onEdit,
+  onDelete,
+  onToggle,
+}: {
+  todo: TodoItem;
+  onEdit: (id: number, newText: string) => void;
+  onDelete: (id: number) => void;
+  onToggle: (id: number, status: boolean) => void;
+}) {
   const {
     attributes,
     listeners,
@@ -92,7 +111,7 @@ function SortableItem({ todo, onEdit, onDelete, onToggle }) {
 }
 
 export default function TodoApp() {
-  const [todos, setTodos] = useState<any[]>([]);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
   const [newTask, setNewTask] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
   const [newCategory, setNewCategory] = useState("");
