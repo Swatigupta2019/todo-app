@@ -72,13 +72,13 @@ function SortableItem({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 20 }}
       transition={{ duration: 0.3 }}
-      className={`flex flex-col gap-1 justify-between p-4 rounded-2xl shadow-xl bg-gradient-to-r from-white to-blue-50 hover:scale-[1.01] transition-transform`}
+      className="flex flex-col gap-1 justify-between p-4 rounded-2xl shadow-xl bg-gradient-to-r from-white to-blue-50 hover:scale-[1.01] transition-transform w-full"
     >
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-start flex-wrap gap-2">
         <div {...listeners} className="cursor-grab pr-2 select-none flex items-center" title="Drag to reorder">
           <span className="text-gray-400">☰</span>
         </div>
-        <div className="flex items-start gap-2 w-full">
+        <div className="flex items-start gap-2 flex-grow">
           <input
             type="checkbox"
             checked={todo.is_complete}
@@ -96,13 +96,13 @@ function SortableItem({
         </div>
         <button
           type="button"
-          className="rounded-full h-6 w-6 text-xs px-0 py-0 bg-red-500 text-white hover:bg-red-600"
+          className="rounded-full h-6 w-6 text-xs px-0 py-0 bg-red-500 text-white hover:bg-red-600 shrink-0"
           onClick={() => onDelete(todo.id)}
         >
           ✕
         </button>
       </div>
-      <div className="text-xs text-gray-500 flex justify-between mt-1 px-1 italic">
+      <div className="text-xs text-gray-500 flex justify-between mt-1 px-1 italic flex-wrap">
         <span>{todo.category || "🗂️ Uncategorized"}</span>
         <span>{todo.due_date ? format(new Date(todo.due_date), "MMM do, yyyy") : "📅 No Due Date"}</span>
       </div>
@@ -194,8 +194,8 @@ export default function TodoApp() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-purple-200 via-pink-100 to-blue-100 p-6 flex flex-col items-center font-sans">
-      <h1 className="text-4xl font-extrabold mb-4 text-center text-indigo-700">✨ My Magical To-Do List ✨</h1>
+    <main className="min-h-screen bg-gradient-to-br from-purple-200 via-pink-100 to-blue-100 p-4 sm:p-6 flex flex-col items-center font-sans">
+      <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-indigo-700">✨ My Magical To-Do List ✨</h1>
 
       {xp !== null && streak !== null && (
         <div className="mb-4 text-sm text-center">
@@ -205,28 +205,28 @@ export default function TodoApp() {
         </div>
       )}
 
-      <Card className="w-full max-w-xl shadow-2xl rounded-3xl p-6 bg-white/70 backdrop-blur">
+      <Card className="w-full max-w-xl shadow-2xl rounded-3xl p-4 sm:p-6 bg-white/70 backdrop-blur">
         <CardContent>
-          <div className="flex flex-col md:flex-row gap-2 items-center mb-4">
+          <div className="flex flex-col sm:flex-row gap-2 items-center mb-4 w-full">
             <Input
               placeholder="Add a new task..."
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
-              className="flex-grow"
+              className="w-full"
             />
             <input
               type="date"
               value={newDueDate}
               onChange={(e) => setNewDueDate(e.target.value)}
-              className="w-full md:w-auto p-2 rounded-md border border-gray-300"
+              className="w-full sm:w-auto p-2 rounded-md border border-gray-300"
             />
             <Input
               placeholder="Category"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
-              className="w-full md:w-auto"
+              className="w-full sm:w-auto"
             />
-            <Button onClick={addTodo}>Add</Button>
+            <Button onClick={addTodo} className="w-full sm:w-auto">Add</Button>
           </div>
 
           <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
